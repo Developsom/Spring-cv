@@ -1,5 +1,7 @@
-package com.example.cv;
+package com.example.cv.service;
 
+import com.example.cv.model.User;
+import com.example.cv.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

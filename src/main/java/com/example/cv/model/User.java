@@ -1,4 +1,4 @@
-package com.example.cv;
+package com.example.cv.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +19,4 @@ public class User {
     // Getters and setters
 
     // Constructors
-}
-
-import org.springframework.data.repository.CrudRepository;
-
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findByUsername(String username);
 }
