@@ -16,6 +16,16 @@ public class User {
     private String username;
     private String password;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String encode) {
+    }
+
+    public void setEmail(String email) {
+    }
+
     // Getters and setters
 
     // Constructors
