@@ -4,7 +4,12 @@ public class AuthResponse {
     private String token;
 
     public AuthResponse(String token) {
+        this.token = token;
     }
 
-    // Constructors, getters, and setters
+    public String getToken() {
+        return token;
+    }
+
+    // Additional getters and setters if needed
 }
