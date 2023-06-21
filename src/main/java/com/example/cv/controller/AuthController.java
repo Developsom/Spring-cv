@@ -1,18 +1,14 @@
-package com.example.cv.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.cv.dto.AuthRequest;
 import com.example.cv.dto.AuthResponse;
-import com.example.cv.model.User;
 import com.example.cv.service.AuthService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000") // Add this line
 public class AuthController {
 
     @Autowired
