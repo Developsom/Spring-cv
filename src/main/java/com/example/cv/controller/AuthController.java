@@ -10,13 +10,18 @@ import com.example.cv.dto.AuthResponse;
 import com.example.cv.service.AuthService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") // Add this line
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
-    @PostMapping("/api/login")
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
         try {
             String token = authService.login(authRequest.getEmail(), authRequest.getPassword());
@@ -27,7 +32,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/api/register")
+    @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest authRequest) {
         try {
             String token = authService.register(authRequest.getEmail(), authRequest.getPassword());
