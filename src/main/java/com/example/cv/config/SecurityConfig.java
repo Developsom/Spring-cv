@@ -19,10 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserRepository userRepository;
+    private final CustomUserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    public SecurityConfig(@Lazy CustomUserDetailsService userDetailsService, UserRepository userRepository) {
+        this.userDetailsService = userDetailsService;
         this.userRepository = userRepository;
     }
 
@@ -55,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth, @Lazy UserDetailsService userDetailsService) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -66,9 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Lazy
-    public UserDetailsService userDetailsService() {
-        // Define and configure your own UserDetailsService implementation here
-        // You can replace this with your own implementation or customize the existing one
+    public UserDetailsService customUserDetailsService() {
+        // Create and configure your CustomUserDetailsService instance here
         return new CustomUserDetailsService(userRepository);
     }
 }
