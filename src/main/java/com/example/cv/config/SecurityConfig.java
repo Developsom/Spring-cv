@@ -1,9 +1,10 @@
 package com.example.cv.config;
 
+import com.example.cv.repository.UserRepository;
+import com.example.cv.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,24 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsService userDetailsService;
-    private PasswordEncoder passwordEncoder;
-
-    public SecurityConfig() {
-    }
-
     @Autowired
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private UserRepository userRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Configure HttpSecurity as per your requirements
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
@@ -56,22 +45,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        // Configure WebSecurity as per your requirements
         web.ignoring().antMatchers("/resources/**");
     }
 
-    @Bean
-    public UserDetailsService userDetailsServiceBean() throws Exception {
-        return super.userDetailsServiceBean();
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    @Lazy
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    @Bean
+    public UserDetailsService userDetailsService() {
+        // Define and configure your own UserDetailsService implementation here
+        // You can replace this with your own implementation or customize the existing one
+        return new CustomUserDetailsService(userRepository);
     }
 }
