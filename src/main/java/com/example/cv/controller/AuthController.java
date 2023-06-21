@@ -28,6 +28,7 @@ public class AuthController {
             AuthResponse response = new AuthResponse(token);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            System.err.println("Login error: " + e.getMessage()); // Print error message to console
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
@@ -39,7 +40,9 @@ public class AuthController {
             AuthResponse response = new AuthResponse(token);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
+            System.err.println("Registration error: " + e.getMessage()); // Print error message to console
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 }
+
