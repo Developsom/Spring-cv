@@ -1,5 +1,5 @@
 package com.example.cv.service;
-
+//I will now stop contributing to this project. With the amount of knowledge i have gained ill be able to reach this poit of the backend again quickly but then it will be more clean.
 import com.example.cv.model.User;
 import com.example.cv.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
