@@ -7,6 +7,12 @@ public class Cv {
     private String zipcode; //Resolve datatype
     private String houseNumber;
     private String houseNumberAdditional;
-    private String name;
+    private String email;
+    private String email;
+    private String email;
+    private String email;
+    private String email;
+    private String email;
+
 
 }
