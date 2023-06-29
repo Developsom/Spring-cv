@@ -8,11 +8,5 @@ public class Cv {
     private String houseNumber;
     private String houseNumberAdditional;
     private String email;
-    private String email;
-    private String email;
-    private String email;
-    private String email;
-    private String email;
-
 
 }
